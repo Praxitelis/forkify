@@ -1,19 +1,32 @@
 {
   "name": "forkify",
   "version": "1.0.0",
-  "description": "forkify project",
-  "main": "index.js",
+  "description": "Forkify",
+  "main": "app.js",
   "scripts": {
-    "dev": "webpack --mode development",
-    "build": "webpack --mode production",
-    "start": "webpack-dev-server --mode development --open"
+    "dev": "webpack-dev-server --mode development --entry ./src/js/app.js --output-filename ./dist/bundle.js",
+    "build": "webpack --mode production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Praxitelis/forkify.git"
   },
   "author": "Praxitelis",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Praxitelis/forkify/issues"
+  },
+  "homepage": "https://github.com/Praxitelis/forkify#readme",
   "devDependencies": {
-    "html-webpack-plugin": "^3.2.0",
-    "webpack": "^4.17.2",
-    "webpack-cli": "^3.1.0",
-    "webpack-dev-server": "^3.1.7"
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.0.2",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-es2015": "^6.24.1",
+    "webpack-cli": "^3.1.0"
+  },
+  "dependencies": {
+    "@babel/core": "^7.0.0",
+    "axios": "^0.18.0",
+    "webpack": "^4.17.2"
   }
 }
