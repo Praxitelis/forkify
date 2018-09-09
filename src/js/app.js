@@ -14,6 +14,8 @@ import { elements, renderLoader, clearLoader } from './views/base';
 
 const state = {};
 
+
+
 const controlSearch = async () => {
 	// 1 - Get query from view
 	const query = searchView.getInput();
@@ -35,6 +37,7 @@ const controlSearch = async () => {
 		// 5 - render results on UI
 		clearLoader();
 		searchView.renderResults(state.search.result);
+
 	}
 }
 
@@ -43,6 +46,14 @@ elements.searchForm.addEventListener('submit', e => {
 	controlSearch();
 });
 
+elements.searchResPages.addEventListener('click', e => {
+	const btn = e.target.closest('.btn-inline');
+	if (btn) {
+		const goToPage = parseInt(btn.dataset.goto, 10);  // access to data
+		searchView.clearResults();
+		searchView.renderResults(state.search.result, goToPage);
+	}
+})
 
 
 
