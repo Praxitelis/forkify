@@ -1,7 +1,8 @@
-import 'babel-polyfill';
+import 'babel-polyfill';   
 import Search from './models/Search';
 import Recipe from './models/Recipe';
 import * as searchView from './views/searchView';
+import * as recipeView from './views/recipeView';
 import { elements, renderLoader, clearLoader } from './views/base';
 
 
@@ -32,13 +33,17 @@ const controlSearch = async () => {
 		searchView.clearResults();
 		renderLoader(elements.searchRes);
 
-
+		try {
 		// 4 - Search for recipes
 		await state.search.getResults();
 
 		// 5 - render results on UI
 		clearLoader();
 		searchView.renderResults(state.search.result);
+		} catch (err) {
+			alert('Something went wrong with the search...');
+			clearLoader();
+		}
 
 	}
 }
@@ -62,12 +67,48 @@ elements.searchResPages.addEventListener('click', e => {
 /// RECIPE CONTROLLER
 */
 
-const r = new Recipe(46956);
-r.getRecipe();
-console.log(r);
+const controlRecipe = async () => {
+	// Get ID from url
+	const id = window.location.hash.replace('#', ''); // removing the hash since we only need the id
+
+	if (id) {
+		// Prepare the UI for changes 
+		recipeView.clearRecipe();
+		renderLoader(elements.recipe);
 
 
+		// Highlight selected search item
+		if (state.search) searchView.highlightSelected(id);
 
+
+		// Create new recipe object
+		state.recipe = new Recipe(id);
+
+
+			try{
+			// Get recipe data
+			await state.recipe.getRecipe();
+			state.recipe.parseIngredients();
+			// Calculate data
+
+			//Calculate servings and time
+			state.recipe.calcTime();
+			state.recipe.calcServings();
+			// Render recipe
+			clearLoader();
+			recipeView.renderRecipe(state.recipe);
+		} catch(err) {
+			alert('Error while generating the recipe!');
+
+	  }
+
+	}
+};
+
+/*window.addEventListener('hashchange', controlRecipe);
+window.addEventListener('load', controlRecipe);*/
+// Or we can write it in one line like below
+['hashchange', 'load'].forEach(event => window.addEventListener(event, controlRecipe));
 
 
 

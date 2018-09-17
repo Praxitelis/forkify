@@ -15,8 +15,10 @@ module.exports = {
         query: {
 		  presets: [
 		    '@babel/preset-env'
+
 		  ]
 		}
+
 
 
 
