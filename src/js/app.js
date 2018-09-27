@@ -19,7 +19,7 @@ import { elements, renderLoader, clearLoader } from './views/base';
 //	-liked recipes
 
 const state = {};
-window.state = state;  // to have access to the state for testing purposes 
+//window.state = state;  // to have access to the state for testing purposes 
 
 /* 
 /// SEARCH CONTROLLER
@@ -242,4 +242,3 @@ elements.recipe.addEventListener('click', e=> {
 });
 
 
-window.l = new List();
